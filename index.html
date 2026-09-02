@@ -1,0 +1,821 @@
+<title>Vantage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+--ground:#FAFAF8;
+--surface:#FFFFFF;
+--surface-2:#EFEFEC;
+--ink:#14151A;
+--ink-soft:#4A4E58;
+--ink-faint:#868B94;
+--accent:#3B6FD6;
+--accent-strong:#2A54AE;
+--accent-ink:#FAFAF8;
+--line:rgba(20,21,26,0.12);
+--line-strong:rgba(20,21,26,0.24);
+
+--display:'Instrument Sans', 'Helvetica Neue', Arial, sans-serif;
+--body:'Source Serif 4', 'Iowan Old Style', Georgia, serif;
+--mono:'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
+}
+
+@media (prefers-color-scheme: dark){
+:root:not([data-theme="light"]){
+--ground:#101114;
+--surface:#17181C;
+--surface-2:#1E2024;
+--ink:#F3F3F1;
+--ink-soft:#B4B7BD;
+--ink-faint:#7B7F87;
+--accent:#6E93E8;
+--accent-strong:#92AEEF;
+--accent-ink:#101114;
+--line:rgba(243,243,241,0.12);
+--line-strong:rgba(243,243,241,0.22);
+}
+}
+:root[data-theme="dark"]{
+--ground:#101114;
+--surface:#17181C;
+--surface-2:#1E2024;
+--ink:#F3F3F1;
+--ink-soft:#B4B7BD;
+--ink-faint:#7B7F87;
+--accent:#6E93E8;
+--accent-strong:#92AEEF;
+--accent-ink:#101114;
+--line:rgba(243,243,241,0.12);
+--line-strong:rgba(243,243,241,0.22);
+}
+
+*{box-sizing:border-box;}
+html{color-scheme:light dark;}
+body{
+margin:0;
+background:var(--ground);
+color:var(--ink);
+font-family:var(--body);
+font-size:16px;
+line-height:1.55;
+-webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;}
+[hidden]{display:none!important;}
+
+::selection{background:var(--accent);color:var(--accent-ink);}
+
+a{color:inherit;}
+h1,h2,h3{
+font-family:var(--display);
+font-weight:700;
+letter-spacing:-0.01em;
+text-wrap:balance;
+margin:0;
+}
+p{margin:0;}
+
+:focus-visible{
+outline:2px solid var(--accent);
+outline-offset:3px;
+}
+
+.mono{
+font-family:var(--mono);
+text-transform:uppercase;
+letter-spacing:0.08em;
+}
+
+.wrap{
+max-width:1180px;
+margin:0 auto;
+padding-inline:32px;
+}
+
+@media (max-width:640px){
+.wrap{padding-inline:20px;}
+}
+
+/* ---------- Nav ---------- */
+header.site{
+position:sticky;
+top:0;
+z-index:40;
+background:var(--ground);
+border-bottom:1px solid var(--line);
+}
+.nav-row{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:24px;
+height:72px;
+}
+.logo{
+font-family:var(--display);
+font-weight:700;
+font-size:1.3rem;
+letter-spacing:-0.02em;
+display:flex;
+align-items:baseline;
+gap:8px;
+}
+.logo::after{
+content:"";
+width:7px;
+height:7px;
+background:var(--accent);
+display:inline-block;
+transform:translateY(-2px);
+}
+nav.links{
+display:flex;
+align-items:center;
+gap:36px;
+}
+nav.links a{
+text-decoration:none;
+font-family:var(--mono);
+font-size:0.72rem;
+text-transform:uppercase;
+letter-spacing:0.08em;
+color:var(--ink-soft);
+border-bottom:1px solid transparent;
+padding-bottom:2px;
+transition:color .15s ease, border-color .15s ease;
+}
+nav.links a:hover{color:var(--ink);border-color:var(--line-strong);}
+@media (max-width:840px){
+nav.links{display:none;}
+}
+
+.btn{
+font-family:var(--mono);
+font-size:0.72rem;
+text-transform:uppercase;
+letter-spacing:0.08em;
+text-decoration:none;
+display:inline-flex;
+align-items:center;
+gap:8px;
+padding:12px 20px;
+border:1px solid var(--line-strong);
+background:transparent;
+color:var(--ink);
+cursor:pointer;
+transition:background .15s ease, color .15s ease, border-color .15s ease;
+white-space:nowrap;
+}
+.btn:hover{border-color:var(--ink);}
+.btn.primary{
+background:var(--accent);
+border-color:var(--accent);
+color:var(--accent-ink);
+}
+.btn.primary:hover{
+background:var(--accent-strong);
+border-color:var(--accent-strong);
+}
+
+/* ---------- Hero ---------- */
+.hero{
+padding:88px 0 64px;
+border-bottom:1px solid var(--line);
+}
+.hero-grid{
+display:grid;
+grid-template-columns:1fr;
+gap:40px;
+}
+.eyebrow{
+font-family:var(--mono);
+font-size:0.72rem;
+color:var(--accent);
+text-transform:uppercase;
+letter-spacing:0.12em;
+margin-bottom:22px;
+display:flex;
+align-items:center;
+gap:10px;
+}
+.eyebrow::before{
+content:"";
+width:22px;
+height:1px;
+background:var(--accent);
+}
+h1.headline{
+font-size:clamp(2.3rem, 5vw, 3.7rem);
+line-height:1.05;
+max-width:16ch;
+}
+h1.headline em{
+font-style:normal;
+color:var(--accent);
+}
+.subhead{
+font-family:var(--body);
+font-size:1.18rem;
+color:var(--ink-soft);
+max-width:52ch;
+margin-top:24px;
+}
+.hero-ctas{
+display:flex;
+gap:16px;
+margin-top:36px;
+flex-wrap:wrap;
+}
+
+.stat-panel{
+margin-top:56px;
+border:1px solid var(--line-strong);
+background:var(--surface);
+display:grid;
+grid-template-columns:repeat(4,1fr);
+}
+.stat-tile{
+padding:26px 22px;
+border-right:1px solid var(--line);
+font-variant-numeric:tabular-nums;
+}
+.stat-tile:last-child{border-right:none;}
+.stat-number{
+font-family:var(--mono);
+font-weight:600;
+font-size:2.1rem;
+color:var(--ink);
+line-height:1;
+}
+.stat-label{
+font-family:var(--mono);
+font-size:0.68rem;
+text-transform:uppercase;
+letter-spacing:0.06em;
+color:var(--ink-faint);
+margin-top:10px;
+line-height:1.4;
+}
+@media (max-width:760px){
+.stat-panel{grid-template-columns:repeat(2,1fr);}
+.stat-tile:nth-child(2){border-right:none;}
+.stat-tile:nth-child(1),.stat-tile:nth-child(2){border-bottom:1px solid var(--line);}
+}
+
+/* ---------- Section shells ---------- */
+section{
+padding:88px 0;
+border-bottom:1px solid var(--line);
+}
+.section-head{
+display:grid;
+grid-template-columns:1fr 1.6fr;
+gap:40px;
+margin-bottom:52px;
+}
+.section-head .kicker{
+font-family:var(--mono);
+font-size:0.72rem;
+text-transform:uppercase;
+letter-spacing:0.1em;
+color:var(--ink-faint);
+}
+.section-head h2{
+font-size:clamp(1.7rem,3vw,2.3rem);
+}
+@media (max-width:760px){
+.section-head{grid-template-columns:1fr;gap:16px;}
+}
+
+/* ---------- Method ---------- */
+.method-body{
+display:grid;
+grid-template-columns:1.6fr 1fr;
+gap:56px;
+}
+.method-body p{
+font-size:1.06rem;
+color:var(--ink-soft);
+max-width:62ch;
+}
+.method-body p + p{margin-top:22px;}
+.method-body strong{color:var(--ink);font-weight:500;}
+.principle-list{
+display:flex;
+flex-direction:column;
+gap:0;
+border-top:1px solid var(--line);
+}
+.principle-list div{
+padding:20px 0;
+border-bottom:1px solid var(--line);
+}
+.principle-list .n{
+font-family:var(--mono);
+font-size:0.68rem;
+color:var(--accent);
+letter-spacing:0.08em;
+}
+.principle-list .t{
+font-family:var(--display);
+font-weight:600;
+font-size:1rem;
+margin-top:6px;
+}
+@media (max-width:840px){
+.method-body{grid-template-columns:1fr;}
+}
+
+/* ---------- Engagements ---------- */
+.engagement-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+border:1px solid var(--line-strong);
+}
+.engagement-card{
+padding:34px 30px;
+border-right:1px solid var(--line-strong);
+display:flex;
+flex-direction:column;
+background:var(--surface);
+}
+.engagement-card:last-child{border-right:none;}
+.engagement-card.featured{background:var(--surface-2);}
+.eng-label{
+font-family:var(--mono);
+font-size:0.68rem;
+text-transform:uppercase;
+letter-spacing:0.08em;
+color:var(--ink-faint);
+}
+.eng-name{
+font-family:var(--display);
+font-weight:700;
+font-size:1.32rem;
+margin-top:12px;
+}
+.eng-price{
+font-family:var(--mono);
+font-size:1.5rem;
+font-weight:600;
+color:var(--accent);
+margin-top:18px;
+font-variant-numeric:tabular-nums;
+}
+.eng-cadence{
+font-family:var(--mono);
+font-size:0.72rem;
+color:var(--ink-faint);
+margin-top:6px;
+}
+.eng-desc{
+font-family:var(--body);
+color:var(--ink-soft);
+margin-top:18px;
+font-size:0.98rem;
+}
+.eng-includes{
+list-style:none;
+padding:0;
+margin:22px 0 0;
+border-top:1px solid var(--line);
+padding-top:18px;
+display:flex;
+flex-direction:column;
+gap:10px;
+flex:1;
+}
+.eng-includes li{
+font-size:0.9rem;
+color:var(--ink-soft);
+padding-left:16px;
+position:relative;
+}
+.eng-includes li::before{
+content:"";
+position:absolute;
+left:0;
+top:9px;
+width:6px;
+height:1px;
+background:var(--ink-faint);
+}
+.eng-cta{
+margin-top:26px;
+align-self:flex-start;
+}
+@media (max-width:900px){
+.engagement-grid{grid-template-columns:1fr;}
+.engagement-card{border-right:none;border-bottom:1px solid var(--line-strong);}
+.engagement-card:last-child{border-bottom:none;}
+}
+
+/* ---------- Outcomes ---------- */
+.sample-flag{
+font-family:var(--mono);
+font-size:0.68rem;
+text-transform:uppercase;
+letter-spacing:0.07em;
+color:var(--ink-faint);
+border:1px solid var(--line);
+padding:5px 10px;
+display:inline-block;
+margin-bottom:36px;
+}
+.quote-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:1px;
+background:var(--line);
+border:1px solid var(--line);
+}
+.quote-card{
+background:var(--surface);
+padding:30px 26px;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+min-height:230px;
+}
+.quote-mark{
+font-family:var(--display);
+font-size:2.4rem;
+color:var(--accent);
+line-height:1;
+}
+.quote-text{
+font-family:var(--body);
+font-size:1.02rem;
+color:var(--ink);
+margin-top:14px;
+}
+.quote-attr{
+margin-top:24px;
+font-family:var(--mono);
+font-size:0.72rem;
+text-transform:uppercase;
+letter-spacing:0.06em;
+color:var(--ink-faint);
+}
+@media (max-width:900px){
+.quote-grid{grid-template-columns:1fr;}
+}
+
+/* ---------- Coach ---------- */
+.coach-grid{
+display:grid;
+grid-template-columns:280px 1fr;
+gap:56px;
+align-items:start;
+}
+.coach-photo{
+aspect-ratio:4/5;
+border:1px dashed var(--line-strong);
+background:var(--surface-2);
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:20px;
+}
+.coach-photo span{
+font-family:var(--mono);
+font-size:0.7rem;
+text-transform:uppercase;
+letter-spacing:0.06em;
+color:var(--ink-faint);
+}
+.coach-name{
+font-family:var(--display);
+font-weight:700;
+font-size:1.6rem;
+color:var(--ink-faint);
+}
+.coach-role{
+font-family:var(--mono);
+font-size:0.72rem;
+text-transform:uppercase;
+letter-spacing:0.07em;
+color:var(--accent);
+margin-top:10px;
+}
+.coach-bio{
+font-family:var(--body);
+color:var(--ink-soft);
+margin-top:20px;
+max-width:56ch;
+font-size:1.02rem;
+}
+.coach-cred{
+margin-top:26px;
+padding-top:22px;
+border-top:1px solid var(--line);
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+}
+.coach-cred div{
+font-family:var(--mono);
+font-size:0.76rem;
+color:var(--ink-faint);
+border-left:2px solid var(--line-strong);
+padding-left:12px;
+}
+@media (max-width:760px){
+.coach-grid{grid-template-columns:1fr;}
+.coach-photo{max-width:220px;}
+.coach-cred{grid-template-columns:1fr;}
+}
+
+/* ---------- Final CTA ---------- */
+.final-cta{
+text-align:left;
+padding:88px 0;
+}
+.final-cta-inner{
+display:flex;
+justify-content:space-between;
+align-items:flex-end;
+gap:40px;
+flex-wrap:wrap;
+border-top:1px solid var(--line-strong);
+padding-top:44px;
+}
+.final-cta h2{
+font-size:clamp(1.9rem,4vw,2.6rem);
+max-width:18ch;
+}
+.final-cta .sub{
+font-family:var(--body);
+color:var(--ink-soft);
+margin-top:16px;
+max-width:44ch;
+}
+
+/* ---------- Footer ---------- */
+footer{
+padding:44px 0;
+}
+.footer-row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:24px;
+flex-wrap:wrap;
+}
+.footer-row .logo{font-size:1.05rem;}
+.footer-links{
+display:flex;
+gap:28px;
+flex-wrap:wrap;
+}
+.footer-links a{
+font-family:var(--mono);
+font-size:0.7rem;
+text-transform:uppercase;
+letter-spacing:0.06em;
+color:var(--ink-faint);
+text-decoration:none;
+}
+.footer-links a:hover{color:var(--ink);}
+.footer-meta{
+font-family:var(--mono);
+font-size:0.68rem;
+color:var(--ink-faint);
+margin-top:28px;
+padding-top:20px;
+border-top:1px solid var(--line);
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+gap:10px;
+}
+
+@media (prefers-reduced-motion: reduce){
+*{transition:none!important;animation:none!important;}
+}
+</style>
+
+<header class="site">
+<div class="wrap nav-row">
+<div class="logo">Vantage</div>
+<nav class="links" aria-label="Primary">
+<a href="#method">Method</a>
+<a href="#engagements">Engagements</a>
+<a href="#outcomes">Outcomes</a>
+<a href="#coach">Coach</a>
+</nav>
+<a class="btn primary" href="#apply">Apply for a slot</a>
+</div>
+</header>
+
+<main>
+<section class="hero">
+<div class="wrap">
+<div class="hero-grid">
+<div>
+<div class="eyebrow">Life coaching for people who already perform</div>
+<h1 class="headline">You have command of your career. Not of your life.</h1>
+<p class="subhead">Vantage isn't business coaching — you don't need help with that. It's for the parts you've been managing on instinct instead of intention: the relationship on autopilot, the energy that doesn't recover overnight anymore, the decisions you keep deferring because you're too competent to admit you're stuck.</p>
+<div class="hero-ctas">
+<a class="btn primary" href="#apply">Apply for a slot</a>
+<a class="btn" href="#method">See the method</a>
+</div>
+</div>
+
+<div class="stat-panel">
+<div class="stat-tile">
+<div class="stat-number">6</div>
+<div class="stat-label">Clients per coach, max</div>
+</div>
+<div class="stat-tile">
+<div class="stat-number">45</div>
+<div class="stat-label">Minutes per session, weekly</div>
+</div>
+<div class="stat-tile">
+<div class="stat-number">90</div>
+<div class="stat-label">Day minimum engagement</div>
+</div>
+<div class="stat-tile">
+<div class="stat-number">1</div>
+<div class="stat-label">Goal per quarter, no more</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="method">
+<div class="wrap">
+<div class="section-head">
+<div class="kicker">The method</div>
+<h2>Treat your life like a domain you take seriously — because you already know how to do that.</h2>
+</div>
+<div class="method-body">
+<div>
+<p>You wouldn't run a portfolio, a service line, or a surgical schedule without instrumentation — without knowing which numbers move, on what cadence, and why. Somewhere along the way, most of our clients stopped applying that discipline to anything outside of work. Vantage applies it to the rest. Sleep, attention, the state of your closest relationships, the goals you've quietly shelved — measured plainly, reviewed on a fixed schedule, adjusted on purpose instead of by accident.</p>
+<p>Each engagement isolates <strong>one variable at a time</strong>. Not because your life has only one problem, but because changing three things at once is how competent people fail to change anything — you can't attribute the result, so you can't repeat it. We pick the variable with the highest leverage, set a baseline, run the change for a full quarter, and read the outcome before touching the next one.</p>
+<p>None of this makes it clinical in the way that matters. The instrumentation is in service of a life, not a substitute for one — the numbers exist so the conversation can go somewhere honest instead of circling. Most clients say the review sessions are the most direct hour of their week.</p>
+</div>
+<div class="principle-list">
+<div>
+<div class="n">01 — Baseline</div>
+<div class="t">Measure before you intervene</div>
+</div>
+<div>
+<div class="n">02 — Isolate</div>
+<div class="t">One variable per quarter</div>
+</div>
+<div>
+<div class="n">03 — Review</div>
+<div class="t">Fixed cadence, no skipped weeks</div>
+</div>
+<div>
+<div class="n">04 — Attribute</div>
+<div class="t">Know why it worked before repeating it</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="engagements">
+<div class="wrap">
+<div class="section-head">
+<div class="kicker">Engagements</div>
+<h2>Three structures. Same rigor. Chosen to match how much of your life is actually in scope.</h2>
+</div>
+<div class="engagement-grid">
+<div class="engagement-card featured">
+<div class="eng-label">Ongoing</div>
+<div class="eng-name">Standing Engagement</div>
+<div class="eng-price">$2,400</div>
+<div class="eng-cadence">Per quarter · billed quarterly</div>
+<p class="eng-desc">The default structure. Weekly 45-minute sessions, a fixed quarterly review, and one goal in play at a time. For clients ready to run this as a permanent instrument, not a project with an end date.</p>
+<ul class="eng-includes">
+<li>Weekly 45-min session, same day and time</li>
+<li>Quarterly written review with baseline vs. outcome</li>
+<li>Direct message access between sessions</li>
+<li>90-day minimum, then quarter to quarter</li>
+</ul>
+<a class="btn primary eng-cta" href="#apply">Apply for a slot</a>
+</div>
+<div class="engagement-card">
+<div class="eng-label">Focused</div>
+<div class="eng-name">Single Variable</div>
+<div class="eng-price">$3,600</div>
+<div class="eng-cadence">Flat fee · 6 weeks</div>
+<p class="eng-desc">One specific problem, named before we start: a decision you're stuck on, a relationship at an inflection point, a burnout pattern you can see coming. Short, deliberately narrow, done when it's done.</p>
+<ul class="eng-includes">
+<li>Six weekly 45-min sessions</li>
+<li>Written scope defined in session one</li>
+<li>Single outcome memo at close</li>
+<li>No renewal pressure — built to end</li>
+</ul>
+<a class="btn eng-cta" href="#apply">Apply for a slot</a>
+</div>
+<div class="engagement-card">
+<div class="eng-label">Existing clients only</div>
+<div class="eng-name">Quarterly Reset</div>
+<div class="eng-price">$950</div>
+<div class="eng-cadence">Per quarter · single session</div>
+<p class="eng-desc">A recurring recalibration for former Standing clients who don't need weekly cadence anymore but still want the instrument run properly, four times a year, on the calendar.</p>
+<ul class="eng-includes">
+<li>One 90-minute session per quarter</li>
+<li>Full metrics review against prior baseline</li>
+<li>Written brief with next-quarter target</li>
+<li>Priority re-entry to Standing, if needed</li>
+</ul>
+<a class="btn eng-cta" href="#apply">Request availability</a>
+</div>
+</div>
+</div>
+</section>
+
+<section id="outcomes">
+<div class="wrap">
+<div class="section-head">
+<div class="kicker">Outcomes</div>
+<h2>What clients say after the first two quarters.</h2>
+</div>
+<div class="sample-flag">Sample content — replace with real client testimonials before publishing</div>
+<div class="quote-grid">
+<div class="quote-card">
+<div>
+<div class="quote-mark">"</div>
+<p class="quote-text">I run a nine-figure book and I could not tell you, before this, the last time I'd had an honest conversation with my own brother. That's the variable we started with. It's not fixed. It's measured now, and it's moving.</p>
+</div>
+<div class="quote-attr">Elena — Portfolio manager</div>
+</div>
+<div class="quote-card">
+<div>
+<div class="quote-mark">"</div>
+<p class="quote-text">I spend my days making high-stakes calls under time pressure and I'm good at it. What I wasn't good at was noticing I hadn't made a single decision about my own life in about four years. The quarterly cadence is what made it stick.</p>
+</div>
+<div class="quote-attr">Marcus — Surgeon</div>
+</div>
+<div class="quote-card">
+<div>
+<div class="quote-mark">"</div>
+<p class="quote-text">Every other coach wanted to talk about my company. Vantage wanted to talk about why I hadn't taken a real day off in three years and what that was actually costing me. Uncomfortable in the first session. Worth it by the third.</p>
+</div>
+<div class="quote-attr">Priya — Founder</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="coach">
+<div class="wrap">
+<div class="section-head">
+<div class="kicker">Your coach</div>
+<h2>Template section — replace with the coach's real name, background, and credentials.</h2>
+</div>
+<div class="coach-grid">
+<div class="coach-photo">
+<span>Add headshot<br>1000 × 1250px</span>
+</div>
+<div>
+<div class="coach-name">Add your name here</div>
+<div class="coach-role">Add your title / specialty here</div>
+<p class="coach-bio">Add your background here — training, prior career, years practicing, and the specific kind of client you work best with. Two to four sentences, written the way you'd actually talk to a prospective client in a first call: direct, specific, no filler.</p>
+<div class="coach-cred">
+<div>Add certification or credential</div>
+<div>Add years in practice</div>
+<div>Add prior career / background</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="final-cta" id="apply">
+<div class="wrap">
+<div class="final-cta-inner">
+<div>
+<h2>Six slots per coach. Applications reviewed weekly.</h2>
+<p class="sub">Vantage is not open enrollment. Every prospective client completes a short written application before a first call is scheduled — it's how we keep the caseload at six and the attention real.</p>
+</div>
+<a class="btn primary" href="mailto:apply@vantagecoaching.example">Apply for a slot</a>
+</div>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="wrap">
+<div class="footer-row">
+<div class="logo">Vantage</div>
+<div class="footer-links">
+<a href="#method">Method</a>
+<a href="#engagements">Engagements</a>
+<a href="#outcomes">Outcomes</a>
+<a href="#coach">Coach</a>
+<a href="mailto:apply@vantagecoaching.example">apply@vantagecoaching.example</a>
+</div>
+</div>
+<div class="footer-meta">
+<span>© 2026 Vantage Coaching. Six clients per coach, always.</span>
+<span>Not business coaching. Not therapy. A third thing.</span>
+</div>
+</div>
+</footer>
